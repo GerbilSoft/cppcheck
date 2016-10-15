@@ -64,6 +64,13 @@ int main(int argc, char *argv[])
         }
     }
 
+#ifdef CFGDIR
+    // If DATADIR isn't set, initialize it to CFGDIR.
+    if (settings->value("DATADIR").isNull()) {
+        settings->setValue("DATADIR", CFGDIR);
+    }
+#endif
+
     TranslationHandler* th = new TranslationHandler(&app);
     th->SetLanguage(settings->value(SETTINGS_LANGUAGE, th->SuggestLanguage()).toString());
 
